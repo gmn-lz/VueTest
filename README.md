@@ -1,3 +1,3 @@
 # VueTest
-banben1
-这是一个同名冲突
+banben1修改了
+不同步了

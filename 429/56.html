@@ -1,0 +1,77 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Todo List with Locations and Events</title>  
+</head>  
+<body>  
+  
+<h1>Todo List with Locations and Events</h1>  
+  
+<form id="todoForm">  
+    <input type="text" id="todoEvent" placeholder="Event...">  
+    <input type="text" id="todoLocation" placeholder="Location...">  
+    <button type="submit">Add</button>  
+</form>  
+  
+<ul id="todoList">  
+    <!-- Todos with locations and events will be added here -->  
+</ul>  
+  
+<script>  
+let todos = []; // 存储待办事项的数组  
+  
+// 添加待办事项的函数  
+function addTodo(event) {  
+    event.preventDefault(); // 阻止表单的默认提交行为  
+  
+    const eventInput = document.getElementById('todoEvent');  
+    const locationInput = document.getElementById('todoLocation');  
+    const todoEvent = eventInput.value.trim();  
+    const todoLocation = locationInput.value.trim();  
+  
+    if (todoEvent && todoLocation) { // 如果事件和地点都不为空  
+        const todo = { event: todoEvent, location: todoLocation }; // 创建一个包含事件和地点的对象  
+        todos.push(todo); // 将待办事项对象添加到数组中  
+        eventInput.value = ''; // 清空事件输入框  
+        locationInput.value = ''; // 清空地点输入框  
+        displayTodos(); // 显示更新后的待办事项列表  
+    }  
+}  
+  
+// 显示待办事项列表的函数  
+function displayTodos() {  
+    const list = document.getElementById('todoList');  
+    // 清空当前列表  
+    while (list.firstChild) {  
+        list.removeChild(list.firstChild);  
+    }  
+    // 遍历todos数组并添加每个待办事项到列表中  
+    todos.forEach(function(todo) {  
+        const item = document.createElement('li');  
+        item.textContent = `Event: ${todo.event}, Location: ${todo.location}`;  
+        // 添加删除按钮到每个待办事项旁边  
+        const deleteButton = document.createElement('button');  
+        deleteButton.textContent = 'Delete';  
+        deleteButton.onclick = function() {  
+            const index = todos.indexOf(todo); // 找到待办事项在数组中的索引  
+            if (index !== -1) {  
+                todos.splice(index, 1); // 从数组中删除待办事项  
+                displayTodos(); // 显示更新后的待办事项列表  
+            }  
+        };  
+        item.appendChild(deleteButton); // 将删除按钮添加到待办事项中  
+        list.appendChild(item); // 将待办事项添加到列表中  
+    });  
+}  
+  
+// 绑定表单提交事件到addTodo函数  
+document.getElementById('todoForm').addEventListener('submit', addTodo);  
+  
+// 初始显示待办事项列表（如果有的话）  
+displayTodos();  
+</script>  
+  
+</body>  
+</html>

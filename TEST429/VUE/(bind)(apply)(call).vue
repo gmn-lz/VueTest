@@ -81,4 +81,36 @@ Function.prototype.call.apply((a)=>a,[1,2,3])
     // (a)=>a  只接受一个参数——  会输出【1,2】
     // 如果是(...a)=>a 就会输出【1,2】,3 了 
 
+    function ajaxText(url) {
+        // 1,创建对象
+        let xhr = new XMLHttpRequest();
+        // 2，创建http请求
+        xhr.open('GET',url,true)
+        // 3，设置状态监听函数
+        xhr.onreadystatechange = function(){
+            if(this.readyState !== 4) return
+            if(this.status === 200){
+                    handle(this.response)
+            }else{
+                    console.error(this.statusText)
+            }
+        }
+        // 设置请求失败时的监听函数
+        xhr.onerror = function(){
+            console.error(this.statusText);
+        }
+        // 设置请求头信息
+        xhr.responseType = 'json'
+        xhr.setRequestHeader('Accept','application/json')
+        // 发送请求
+        xhr.send()
+    }  
+
 </script>
+该项⽬主要是负责开发针对超市蔬菜配送的商品管理可视化平台。实现商家登录、蔬菜上架/下架、订单查看、客⼾信息管
+理、蔬菜分类设置、商品促销以及销售统计等功能。本⼈主要负责的是前端⻚⾯的搭建和路由跳转功能，以及登录、蔬菜上
+架下架、客⼾订单管理、蔬菜分类筛选展⽰等功能。
+
+该项⽬建⽴⼀个⽹络平台为社区附近的流浪猫提供免费的绝育和医疗服务。实现⽤⼾登录、猫咪档案登记、附近猫咪查询、
+猫咪绝育计划申请、猫咪健康状况监视等功能。本⼈主要负责⼩程序以上功能的前端⻚⾯搭建、封装接⼝请求、组件封装、
+性能优化和跨端兼容等功能。
